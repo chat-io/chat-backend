@@ -14,7 +14,7 @@ const signupValidation = (user) => {
     return false;
   }
 
-  if (!isByteLength(user.password, { min: 5 })) {
+  if (!validator.isByteLength(user.password, { min: 5 })) {
     return false;
   }
 
