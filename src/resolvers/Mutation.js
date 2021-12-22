@@ -1,11 +1,16 @@
 const User = require("../../models").User;
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../util/token");
+const { signupValidation, loginValidation } = require("../validators/auth");
 
 Mutation = {
   async login(parent, args, ctx, info) {
     const { email, password } = args.data;
+    const isDataValid = loginValidation(email, password);
 
+    if (!isDataValid) {
+      throw new Error("Unable to login");
+    }
     //find user
     let user = await User.findOne({
       where: {
@@ -35,6 +40,11 @@ Mutation = {
   },
 
   async signup(parent, args, ctx, info) {
+    const isDataValid = signupValidation(args.data);
+    if (!isDataValid) {
+      throw new Error("Invalid Data.");
+    }
+
     let user = await User.create(args.data);
     user = user.toJSON();
     user.password = "";
