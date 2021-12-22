@@ -27,6 +27,17 @@ Mutation = {
     //generate auth token
     user = user.toJSON();
     //user.get({raw: true}) is also fine
+    user.password = "";
+    return {
+      token: generateToken(user),
+      user,
+    };
+  },
+
+  async signup(parent, args, ctx, info) {
+    let user = await User.create(args.data);
+    user = user.toJSON();
+    user.password = "";
 
     return {
       token: generateToken(user),
