@@ -21,4 +21,16 @@ const signupValidation = (user) => {
   return true;
 };
 
-module.exports = { signupValidation };
+const loginValidation = (email, password) => {
+  if (
+    validator.isEmpty(email) ||
+    validator.isEmpty(password) ||
+    validator.isEmail(email)
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
+module.exports = { signupValidation, loginValidation };
