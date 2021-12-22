@@ -1,6 +1,6 @@
 const validator = require("validator");
 
-const authValidation = (user) => {
+const signupValidation = (user) => {
   if (
     validator.isEmpty(user.firstName) ||
     validator.isEmpty(user.lastName) ||
@@ -21,4 +21,4 @@ const authValidation = (user) => {
   return true;
 };
 
-module.exports = { authValidation };
+module.exports = { signupValidation };
