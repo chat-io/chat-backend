@@ -30,12 +30,13 @@ Mutation = {
     }
 
     //generate auth token
-    user = user.toJSON();
+    const userData = user.toJSON();
     //user.get({raw: true}) is also fine
-    user.password = "";
+
+    userData.password = "";
     return {
-      token: generateToken(user),
-      user,
+      token: generateToken(userData),
+      user: userData,
     };
   },
 
