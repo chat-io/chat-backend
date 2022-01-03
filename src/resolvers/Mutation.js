@@ -60,18 +60,25 @@ Mutation = {
     console.log("updateUser called");
     console.log(args.data);
 
-    let user = await User.update(args.data, {
+    await User.update(args.data, {
       where: { id: args.data.id },
-      returning: true,
-      raw: true,
     });
 
-    user = user[1][0];
+    console.log("updated");
 
-    console.log(user);
+    let user = await User.findOne({
+      where: {
+        id: args.data.id,
+      },
+    });
+
+    const userData = user.toJSON();
+    userData.password = "";
+
+    userData.password = "";
     return {
-      token: generateToken(user),
-      user,
+      token: generateToken(userData),
+      user: userData,
     };
   },
 };
