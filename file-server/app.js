@@ -7,7 +7,7 @@ const port = 3002;
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "avatar")));
+app.use("/avatar", express.static(path.join(__dirname, "avatar")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
