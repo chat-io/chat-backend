@@ -12,7 +12,7 @@ app.use("/avatar", express.static(path.join(__dirname, "avatar")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
-    "Access-Control-Allow_Methods",
+    "Access-Control-Allow-Methods",
     "GET, POST, DELETE, PUT, PATCH, OPTIONS"
   );
   res.setHeader("Acess-Control-Allow-Headers", "Content-Type");
