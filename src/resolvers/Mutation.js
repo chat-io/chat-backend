@@ -56,6 +56,31 @@ Mutation = {
       user,
     };
   },
+  async updateUser(parent, args, ctx, info) {
+    console.log("updateUser called");
+    console.log(args.data);
+
+    await User.update(args.data, {
+      where: { id: args.data.id },
+    });
+
+    console.log("updated");
+
+    let user = await User.findOne({
+      where: {
+        id: args.data.id,
+      },
+    });
+
+    const userData = user.toJSON();
+    userData.password = "";
+
+    userData.password = "";
+    return {
+      token: generateToken(userData),
+      user: userData,
+    };
+  },
 };
 
 module.exports = Mutation;

@@ -8,6 +8,7 @@ const typeDefs = gql`
   type Mutation {
     login(data: LoginUserInput!): AuthPayload!
     signup(data: CreateUserInput!): AuthPayload!
+    updateUser(data: UpdateUserInput!): AuthPayload!
   }
 
   type User {
@@ -37,6 +38,14 @@ const typeDefs = gql`
     password: String!
     gender: String
     avatar: String
+  }
+
+  input UpdateUserInput {
+    id: ID!
+    firstName: String
+    lastName: String
+    password: String
+    gender: String
   }
 `;
 
