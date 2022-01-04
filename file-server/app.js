@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const port = 3002;
 
 const app = express();
@@ -33,10 +34,22 @@ app.get("/", (req, res) => {
   res.send("HELLO WORLD!");
 });
 
-//나중에 put으로 바꾸기
 app.put("/avatar/:userId", upload.single("avatar"), async (req, res) => {
   console.log(req.file);
   res.send("file uploaded");
+});
+
+app.post("/avatar/:userId", async (req, res) => {
+  console.log("post avatar");
+  const avatarDirPath = path.join(__dirname, "avatar");
+  fs.copyFile(
+    path.join(avatarDirPath, "avatar.png"),
+    path.join(avatarDirPath, `${req.params.userId}.png`),
+    (err) => {
+      if (err) throw err;
+      res.status(200).send();
+    }
+  );
 });
 
 app.listen(port, () => {
