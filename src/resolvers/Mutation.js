@@ -1,7 +1,13 @@
-const User = require("../../models").User;
+const models = require("../../models");
+const User = models.User;
+const Chat = models.Chat;
+const ChatUser = models.ChatUser;
+const Message = models.Message;
+const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../util/token");
 const { signupValidation, loginValidation } = require("../validators/auth");
+const { sequelize } = require("../../models");
 
 Mutation = {
   async login(parent, args, ctx, info) {
@@ -41,7 +47,6 @@ Mutation = {
   },
 
   async signup(parent, args, ctx, info) {
-    console.log(args.data);
     const isDataValid = signupValidation(args.data);
     if (!isDataValid) {
       throw new Error("Invalid Data.");
@@ -80,6 +85,96 @@ Mutation = {
       token: generateToken(userData),
       user: userData,
     };
+  },
+  async createChat(parent, args, ctx, info) {
+    const userId = args.userId;
+    const partnerId = args.partnerId;
+
+    const t = await sequelize.transaction();
+
+    try {
+      const user = await User.findOne({
+        where: {
+          id: userId,
+        },
+        include: [
+          {
+            model: Chat,
+            where: {
+              type: "dual",
+            },
+            include: [
+              {
+                model: ChatUser,
+                where: {
+                  userId: partnerId,
+                },
+              },
+            ],
+          },
+        ],
+      });
+
+      if (user && user.Chats.length > 0) {
+        throw new Error("Chat with this user already exists!");
+      }
+
+      const chat = await Chat.create({ type: "dual" }, { transaction: t });
+
+      await ChatUser.bulkCreate(
+        [
+          {
+            chatId: chat.id,
+            userId,
+          },
+          {
+            chatId: chat.id,
+            userId: partnerId,
+          },
+        ],
+        { transaction: t }
+      );
+
+      await t.commit();
+
+      const newChat = await Chat.findOne({
+        where: {
+          id: chat.id,
+        },
+        include: [
+          {
+            model: User,
+            where: {
+              [Op.not]: {
+                id: userId,
+              },
+            },
+          },
+          {
+            model: Message,
+          },
+        ],
+      });
+
+      return newChat;
+    } catch (error) {
+      await t.rollback();
+      console.log(error.message);
+      throw new Error(error.message);
+    }
+  },
+  async deleteChat(parent, args, ctx, info) {
+    try {
+      await Chat.destroy({
+        where: {
+          id: args.chatId,
+        },
+      });
+
+      return `Chat deleted successfully!`;
+    } catch (error) {
+      throw new Error("Failed to delete the caht.");
+    }
   },
 };
 

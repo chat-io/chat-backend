@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsToMany(models.Chat, {
+        through: "ChatUser",
+        foreignKey: "userId",
+      });
+      this.hasMany(models.ChatUser, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -28,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
           const url = `${config.fileServerUrl}:${config.fileServerPort}`;
 
           if (!avatar) {
-            return `${url}/${this.getDataValue("gender")}.svg`;
+            // return `${url}/${this.getDataValue("gender")}.svg`;
+            return `${url}/avatar/avatar.png`;
           }
         },
       },

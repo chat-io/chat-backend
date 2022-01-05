@@ -1,3 +1,5 @@
 node_modules/
 .end
 file-server/node_modules
+file-server/avatar/
+.DS_Store*
