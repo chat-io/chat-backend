@@ -21,6 +21,23 @@ const typeDefs = gql`
     avatar: String
   }
 
+  type Chat {
+    id: ID!
+    type: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Message {
+    id: ID!
+    type: String!
+    message: String!
+    chatId: Int!
+    fromUserId: Int!
+    createdAt: String!
+    updatedAt: String!
+  }
+
   type AuthPayload {
     token: String!
     user: User!
