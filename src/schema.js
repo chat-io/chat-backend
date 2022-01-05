@@ -3,6 +3,7 @@ const { gql } = require("apollo-server");
 const typeDefs = gql`
   type Query {
     users: [User!]!
+    chats(userId: ID!): [Chat!]!
   }
 
   type Mutation {
@@ -19,6 +20,8 @@ const typeDefs = gql`
     password: String!
     gender: String
     avatar: String
+    chats: [Chat]
+    messages: [Message]
   }
 
   type Chat {
@@ -26,14 +29,24 @@ const typeDefs = gql`
     type: String!
     createdAt: String!
     updatedAt: String!
+    users: [User!]!
+    messages: [Message]
   }
 
   type Message {
     id: ID!
     type: String!
     message: String!
+    chatId: Chat!
+    fromUserId: User!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type ChatUsers {
+    id: ID!
     chatId: Int!
-    fromUserId: Int!
+    userId: Int!
     createdAt: String!
     updatedAt: String!
   }
