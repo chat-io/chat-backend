@@ -14,6 +14,7 @@ const typeDefs = gql`
     signup(data: CreateUserInput!): AuthPayload!
     updateUser(data: UpdateUserInput!): AuthPayload!
     createChat(userId: ID!, partnerId: ID!): Chat!
+    deleteChat(chatId: ID!): String!
   }
 
   type User {

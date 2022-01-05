@@ -163,6 +163,19 @@ Mutation = {
       throw new Error(error.message);
     }
   },
+  async deleteChat(parent, args, ctx, info) {
+    try {
+      await Chat.destroy({
+        where: {
+          id: args.chatId,
+        },
+      });
+
+      return `Chat deleted successfully!`;
+    } catch (error) {
+      throw new Error("Failed to delete the caht.");
+    }
+  },
 };
 
 module.exports = Mutation;
