@@ -80,7 +80,8 @@ Mutation = {
     const userData = user.toJSON();
     userData.password = "";
 
-    userData.password = "";
+    console.log(userData);
+
     return {
       token: generateToken(userData),
       user: userData,
