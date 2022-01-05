@@ -10,17 +10,17 @@ module.exports = {
       },
       type: {
         type: Sequelize.STRING,
-        default: "dual",
+        defaultValue: "dual",
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("NOW()"),
+        defaultValue: Sequelize.literal("Now()"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("NOW()"),
+        defaultValue: Sequelize.literal("Now()"),
       },
     });
   },
