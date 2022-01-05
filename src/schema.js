@@ -12,6 +12,7 @@ const typeDefs = gql`
     login(data: LoginUserInput!): AuthPayload!
     signup(data: CreateUserInput!): AuthPayload!
     updateUser(data: UpdateUserInput!): AuthPayload!
+    createChat(userId: ID!, partnerId: ID!): Chat!
   }
 
   type User {

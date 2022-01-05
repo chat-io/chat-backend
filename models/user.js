@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
           const url = `${config.fileServerUrl}:${config.fileServerPort}`;
 
           if (!avatar) {
-            return `${url}/${this.getDataValue("gender")}.svg`;
+            // return `${url}/${this.getDataValue("gender")}.svg`;
+            return `${url}/avatar/avatar.png`;
           }
         },
       },
