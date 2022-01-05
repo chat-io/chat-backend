@@ -41,7 +41,6 @@ Mutation = {
   },
 
   async signup(parent, args, ctx, info) {
-    console.log(args.data);
     const isDataValid = signupValidation(args.data);
     if (!isDataValid) {
       throw new Error("Invalid Data.");

@@ -37,8 +37,6 @@ ChatResolver = {
       limit: 20,
       order: [["id", "DESC"]],
     });
-
-    console.log(messages);
     return messages;
   },
 };

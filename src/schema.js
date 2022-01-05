@@ -5,6 +5,7 @@ const typeDefs = gql`
     users: [User!]!
     chats(userId: ID!): [Chat!]!
     user(userId: ID!): User!
+    message(messageId: ID!): Message!
   }
 
   type Mutation {
