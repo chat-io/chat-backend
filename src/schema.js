@@ -6,6 +6,7 @@ const typeDefs = gql`
     chats(userId: ID!): [Chat!]!
     user(userId: ID!): User!
     message(messageId: ID!): Message!
+    messages(chatId: ID!, page: Int): MessagePayload!
   }
 
   type Mutation {
@@ -57,6 +58,12 @@ const typeDefs = gql`
   type AuthPayload {
     token: String!
     user: User!
+  }
+
+  type MessagePayload {
+    messages: [Message!]
+    page: Int
+    totalPages: Int
   }
 
   input LoginUserInput {

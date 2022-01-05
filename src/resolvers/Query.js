@@ -47,6 +47,39 @@ Query = {
 
     return user.Chats;
   },
+  async messages(parent, args, context, info) {
+    const chatId = args.chatId;
+    const page = args.page || 1;
+    const limit = 10;
+
+    const offset = page > 1 ? page * limit : 0;
+
+    let messages = await Message.findAndCountAll({
+      where: {
+        chatId,
+      },
+      limit,
+      offset,
+    });
+
+    const totalPages = Math.ceil(messages.count / limit);
+
+    if (page > totalPages) {
+      return {
+        messages: [],
+      };
+    }
+
+    messages = messages.rows.map((message) => message.dataValues);
+
+    const result = {
+      messages,
+      page,
+      totalPages,
+    };
+
+    return result;
+  },
 };
 
 module.exports = Query;
