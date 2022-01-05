@@ -1,7 +1,6 @@
 const models = require("../../models");
 const User = models.User;
 const Chat = models.Chat;
-const ChatUser = models.ChatUser;
 const Message = models.Message;
 const { Op } = require("sequelize");
 
@@ -17,8 +16,6 @@ Query = {
     });
   },
   async chats(prent, args, ctx, info) {
-    // console.log("chats query called");
-    // console.log(args.userId);
     const user = await User.findOne({
       where: {
         id: args.userId,
