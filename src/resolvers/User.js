@@ -1,5 +1,4 @@
 const models = require("../../models");
-const User = models.User;
 const Chat = models.Chat;
 const ChatUser = models.ChatUser;
 const Message = models.Message;
