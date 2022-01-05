@@ -35,12 +35,10 @@ app.get("/", (req, res) => {
 });
 
 app.put("/avatar/:userId", upload.single("avatar"), async (req, res) => {
-  console.log(req.file);
   res.send("file uploaded");
 });
 
 app.post("/avatar/:userId", async (req, res) => {
-  console.log("post avatar");
   const avatarDirPath = path.join(__dirname, "avatar");
   fs.copyFile(
     path.join(avatarDirPath, "avatar.png"),

@@ -17,8 +17,6 @@ Query = {
     });
   },
   async chats(prent, args, ctx, info) {
-    console.log("chats query called");
-    // console.log(args.userId);
     const user = await User.findOne({
       where: {
         id: args.userId,
