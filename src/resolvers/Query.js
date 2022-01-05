@@ -9,7 +9,13 @@ Query = {
   async users(parent, args, ctx, info) {
     return await User.findAll();
   },
-
+  async user(parent, args, ctx, info) {
+    return await User.findOne({
+      where: {
+        id: args.userId,
+      },
+    });
+  },
   async chats(prent, args, ctx, info) {
     // console.log("chats query called");
     // console.log(args.userId);
