@@ -87,6 +87,7 @@ const typeDefs = gql`
     lastName: String
     password: String
     gender: String
+    avatar: String
   }
 `;
 
