@@ -26,18 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       gender: DataTypes.STRING,
-      avatar: {
-        type: DataTypes.STRING,
-        get() {
-          const avatar = this.getDataValue("avatar");
-          const url = `${config.fileServerUrl}:${config.fileServerPort}`;
-
-          if (!avatar) {
-            // return `${url}/${this.getDataValue("gender")}.svg`;
-            return `${url}/avatar/avatar.png`;
-          }
-        },
-      },
+      avatar: DataTypes.STRING,
     },
     {
       sequelize,

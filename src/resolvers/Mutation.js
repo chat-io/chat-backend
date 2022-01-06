@@ -52,6 +52,8 @@ Mutation = {
       throw new Error("Invalid Data.");
     }
 
+    args.data.avatar = `${process.env.FILE_SERVER_URL}/avatar/avatar.png`;
+
     let user = await User.create(args.data);
     user = user.toJSON();
     user.password = "";
