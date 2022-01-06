@@ -3,3 +3,5 @@ node_modules/
 file-server/node_modules
 file-server/avatar/
 .DS_Store*
+*.env
+
